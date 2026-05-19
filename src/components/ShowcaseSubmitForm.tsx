@@ -153,6 +153,20 @@ export function ShowcaseSubmitForm({ showcase }: ShowcaseSubmitFormProps) {
       return
     }
 
+    // Validate source URL is different from project URL
+    if (isOpenSource && sourceUrl && sourceUrl.trim() === url.trim()) {
+      notify(
+        <div>
+          <div className="font-medium">Source URL must be different</div>
+          <div className="text-gray-500 dark:text-gray-400 text-xs">
+            The source code URL should point to your repository (e.g., GitHub),
+            not your project website.
+          </div>
+        </div>,
+      )
+      return
+    }
+
     // Warn user if editing an approved showcase
     if (isEditMode && showcase.status === 'approved') {
       const confirmed = confirm(
